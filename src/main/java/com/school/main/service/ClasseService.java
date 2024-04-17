@@ -65,33 +65,13 @@ public class ClasseService {
         return false;
     }
 
-    public boolean showBulletin(Long classe_id)
-    {
+    public Object showBulletin(Long classe_id)    {
         Optional<Classe> currentClasse = this.classeRepository.findById(classe_id);
-
         if(currentClasse.isPresent()){
-            Classe classe = currentClasse.get();
-            List<Student> students = classe.getStudents();
-            Map<Long, Integer> homework_note = new HashMap<>();
-            Long homework_id;
-            int note;
-            List<Bulletin> bulletins = new ArrayList<>();
-            for (Student student : students) {
-                for (int i = 0; i < student.getNotes().size(); i++) {
-                    homework_id = student.getNotes().get(i).getHomework_part_id().getHomework().getId();
-                    note = student.getNotes().get(i).getNote();
-                    if (homework_note.containsKey(homework_id)) {
-                        homework_note.put(homework_id, homework_note.get(homework_id) + note);
-                    } else {
-                        homework_note.put(homework_id, note);
-                    }
-                }
-                bulletins.add(new Bulletin(student, student))
-            }
-            return true;
+            return this.classeRepository.getBulletinClasse(currentClasse.get());
         }
 
-        return false;
+        return null;
     }
 
 }

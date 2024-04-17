@@ -17,7 +17,7 @@ public class HomeworkPart {
     @OneToMany(mappedBy = "homework_part_id", cascade = CascadeType.REMOVE)
     private List<Note> notes;
 
-    private int point;
+    private float point;
 
 
     public Long getId() {
@@ -32,7 +32,7 @@ public class HomeworkPart {
         return notes;
     }
 
-    public int getPoint() {
+    public float getPoint() {
         return point;
     }
 }

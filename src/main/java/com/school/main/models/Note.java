@@ -17,7 +17,7 @@ public class Note {
     @JoinColumn(name = "homework_part_id")
     private HomeworkPart homework_part_id;
 
-    private int note;
+    private float note;
 
 
     public Long getId() {
@@ -32,7 +32,7 @@ public class Note {
         return homework_part_id;
     }
 
-    public int getNote() {
+    public float getNote() {
         return note;
     }
 }

@@ -9,10 +9,10 @@ public class Bulletin {
 
     private Homework homeworks;
 
-    private int note;
+    private float note;
 
 
-    public Bulletin(Student student, Homework homeworks, int note) {
+    public Bulletin(Student student, Homework homeworks, float note) {
         this.student = student;
         this.homeworks = homeworks;
         this.note = note;
@@ -27,7 +27,7 @@ public class Bulletin {
         return homeworks;
     }
 
-    public int getNote() {
+    public float getNote() {
         return note;
     }
 }

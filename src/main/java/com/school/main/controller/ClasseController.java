@@ -1,6 +1,7 @@
 package com.school.main.controller;
 
 import com.school.main.entity.ApiResponse;
+import com.school.main.entity.Bulletin;
 import com.school.main.models.Classe;
 import com.school.main.request.ClasseRequest.*;
 import com.school.main.service.ClasseService;
@@ -60,9 +61,8 @@ public class ClasseController {
     @GetMapping("/classe/bulletin")
     public ResponseEntity<Object> getClasseBulletin(@RequestBody GetClasseBulletinRequest classeRequest){
         try {
-            classeService.showBulletin(classeRequest.getId());
 
-            return new ResponseEntity<>("a", HttpStatus.OK);
+            return new ResponseEntity<>(classeService.showBulletin(classeRequest.getId()), HttpStatus.OK);
         }catch (Exception e)
         {
             return new ResponseEntity<>(new ApiResponse("Une erreur est survenue lors de la suppression de la classe"), HttpStatus.BAD_REQUEST);
