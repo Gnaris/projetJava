@@ -9,8 +9,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
+
     @Transactional
     @Modifying
     @Query("UPDATE Student AS s SET s.classe_student = null WHERE s.classe_student = :classe AND s.id IN :students_id")

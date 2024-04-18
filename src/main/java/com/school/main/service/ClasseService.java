@@ -6,6 +6,8 @@ import com.school.main.models.Homework;
 import com.school.main.models.Student;
 import com.school.main.repository.ClasseRepository;
 import com.school.main.repository.StudentRepository;
+import com.school.main.request.ClasseRequest.CreateClasseRequest;
+import com.school.main.request.ClasseRequest.UpdateClasseRequest;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
@@ -21,28 +23,33 @@ public class ClasseService {
     @Autowired
     private StudentRepository studentRepository;
 
-    public Classe createClasse(Classe classe, List<Long> students_id)
+    public Classe createClasse(CreateClasseRequest classeRequest)
     {
-        List<Student> studentsToUpdate = this.studentRepository.findAllById(students_id);
-        if(!studentsToUpdate.isEmpty())
-        {
-            studentsToUpdate.forEach(s -> s.setClass(classe));
-            classe.setStudents(studentsToUpdate);
-        }
+        List<Student> studentsToUpdate = this.studentRepository.findAllById(classeRequest.getStudents_id());
+        Classe classe = new Classe();
+        classe.setName(classeRequest.getName());
+        studentsToUpdate.forEach(s -> s.setClass(classe));
+        classe.setStudents(studentsToUpdate);
         return this.classeRepository.save(classe);
     }
 
 
-    public Classe editClasse(Classe classe, List<Long> studentsIdToAdd, List<Long> studentsIdToDelete)
+    public Classe updateClasse(UpdateClasseRequest classeRequest)
     {
-        Optional<Classe> currentClass = this.classeRepository.findById(classe.getId());
+        Optional<Classe> currentClass = this.classeRepository.findById(classeRequest.getId());
         if(currentClass.isPresent())
         {
             Classe updatedClasse = currentClass.get();
-            updatedClasse.setName(classe.getName());
+            updatedClasse.setName(classeRequest.getName());
 
-            this.studentRepository.deleteClasseOnStudents(updatedClasse, studentsIdToDelete);
-            this.studentRepository.addClasseOnStudents(updatedClasse, studentsIdToAdd);
+            if(!classeRequest.getStudentsIdToDelete().isEmpty())
+            {
+                this.studentRepository.deleteClasseOnStudents(updatedClasse, classeRequest.getStudentsIdToDelete());
+            }
+            if(!classeRequest.getStudentsIdToAdd().isEmpty())
+            {
+                this.studentRepository.addClasseOnStudents(updatedClasse, classeRequest.getStudentsIdToAdd());
+            }
 
             return this.classeRepository.save(updatedClasse);
         }else{
@@ -63,15 +70,6 @@ public class ClasseService {
         }
 
         return false;
-    }
-
-    public Object showBulletin(Long classe_id)    {
-        Optional<Classe> currentClasse = this.classeRepository.findById(classe_id);
-        if(currentClasse.isPresent()){
-            return this.classeRepository.getBulletinClasse(currentClasse.get());
-        }
-
-        return null;
     }
 
 }

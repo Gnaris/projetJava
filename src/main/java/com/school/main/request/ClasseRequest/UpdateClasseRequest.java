@@ -2,8 +2,10 @@ package com.school.main.request.ClasseRequest;
 
 import java.util.List;
 
-public class EditClasseRequest extends ClasseRequest {
+public class UpdateClasseRequest {
 
+    private Long id;
+    private String name;
     private List<Long> studentsIdToAdd;
     private List<Long> studentsIdToDelete;
 
@@ -13,5 +15,15 @@ public class EditClasseRequest extends ClasseRequest {
 
     public List<Long> getStudentsIdToDelete() {
         return studentsIdToDelete;
+    }
+
+    public Long getId()
+    {
+        return id;
+    }
+
+    public String getName()
+    {
+        return name;
     }
 }

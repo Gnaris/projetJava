@@ -17,6 +17,7 @@ public class Homework {
     private HomeworkType type;
 
     @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date date;
 
     @Column(nullable = false)
@@ -59,5 +60,30 @@ public class Homework {
 
     public List<HomeworkPart> getHomeworksParts() {
         return homeworksParts;
+    }
+
+
+    public void setType(HomeworkType type) {
+        this.type = type;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setCoefficient(float coefficient) {
+        this.coefficient = coefficient;
+    }
+
+    public void setClasse(Classe classe_homework) {
+        this.classe_homework = classe_homework;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
+
+    public void setHomeworksParts(List<HomeworkPart> homeworksParts) {
+        this.homeworksParts = homeworksParts;
     }
 }

@@ -35,4 +35,13 @@ public class HomeworkPart {
     public float getPoint() {
         return point;
     }
+
+
+    public void setHomework(Homework homework) {
+        this.homework = homework;
+    }
+
+    public void setPoint(float point) {
+        this.point = point;
+    }
 }

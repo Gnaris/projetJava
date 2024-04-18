@@ -11,7 +11,7 @@ public class Subject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
     @OneToMany(mappedBy = "subject")
@@ -27,5 +27,9 @@ public class Subject {
 
     public List<Homework> getHomeworks() {
         return homeworks;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -1,7 +1,6 @@
 package com.school.main.controller;
 
 import com.school.main.entity.ApiResponse;
-import com.school.main.entity.Bulletin;
 import com.school.main.models.Classe;
 import com.school.main.request.ClasseRequest.*;
 import com.school.main.service.ClasseService;
@@ -22,7 +21,7 @@ public class ClasseController {
     @PostMapping("/classe/create")
     public ResponseEntity<Object> createClasse(@RequestBody CreateClasseRequest classeRequest){
         try{
-            Classe newClasse = classeService.createClasse(classeRequest.getClasse(), classeRequest.getStudents_id());
+            Classe newClasse = classeService.createClasse(classeRequest);
             return new ResponseEntity<>(newClasse, HttpStatus.OK);
         }catch (Exception e)
         {
@@ -31,10 +30,10 @@ public class ClasseController {
         }
     }
 
-    @PutMapping("/classe/edit")
-    public ResponseEntity<Object> editClasse(@RequestBody EditClasseRequest classeRequest){
+    @PutMapping("/classe/update")
+    public ResponseEntity<Object> editClasse(@RequestBody UpdateClasseRequest classeRequest){
         try{
-            Classe updatedClasse = classeService.editClasse(classeRequest.getClasse(), classeRequest.getStudentsIdToAdd(), classeRequest.getStudentsIdToDelete());
+            Classe updatedClasse = classeService.updateClasse(classeRequest);
             return new ResponseEntity<>(Objects.requireNonNullElseGet(updatedClasse, () -> new ApiResponse("Cette classe n'existe pas ")), HttpStatus.OK);
         }catch (Exception e)
         {
@@ -54,17 +53,6 @@ public class ClasseController {
                 throw new Exception();
             }
         }catch (Exception e){
-            return new ResponseEntity<>(new ApiResponse("Une erreur est survenue lors de la suppression de la classe"), HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    @GetMapping("/classe/bulletin")
-    public ResponseEntity<Object> getClasseBulletin(@RequestBody GetClasseBulletinRequest classeRequest){
-        try {
-
-            return new ResponseEntity<>(classeService.showBulletin(classeRequest.getId()), HttpStatus.OK);
-        }catch (Exception e)
-        {
             return new ResponseEntity<>(new ApiResponse("Une erreur est survenue lors de la suppression de la classe"), HttpStatus.BAD_REQUEST);
         }
     }
