@@ -8,11 +8,11 @@
         <version>3.2.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.school</groupId>
-    <artifactId>School</artifactId>
+    <groupId>com.projetjava</groupId>
+    <artifactId>ProjetJava</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>School</name>
-    <description>School</description>
+    <name>ProjetJava</name>
+    <description>ProjetJava</description>
     <properties>
         <java.version>17</java.version>
     </properties>
