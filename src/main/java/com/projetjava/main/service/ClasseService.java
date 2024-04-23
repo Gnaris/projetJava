@@ -19,6 +19,10 @@ public class ClasseService {
     @Autowired
     private StudentRepository studentRepository;
 
+    public List<Classe> getClasses()
+    {
+        return this.classeRepository.findAll();
+    }
     public Classe createClasse(CreateClasseRequest classeRequest)
     {
         List<Student> studentsToUpdate = this.studentRepository.findAllById(classeRequest.getStudents_id());

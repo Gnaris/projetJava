@@ -20,6 +20,12 @@ public class ClasseController {
     @Autowired
     private ClasseService classeService;
 
+    @GetMapping("/classe")
+    public ResponseEntity<List<Classe>> getClasse()
+    {
+        return ResponseEntity.ok(this.classeService.getClasses());
+    }
+
     @PostMapping("/classe/create")
     public ResponseEntity<Object> createClasse(@RequestBody CreateClasseRequest classeRequest){
         try{
