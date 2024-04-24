@@ -12,13 +12,21 @@ import java.util.List;
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
+    @Query("SELECT s FROM Student as s WHERE s.classe IS NULL")
+    List<Student> findAllStudentWithoutClasse();
+
     @Transactional
     @Modifying
-    @Query("UPDATE Student AS s SET s.classe_student = null WHERE s.classe_student = :classe AND s.id IN :students_id")
+    @Query("UPDATE Student AS s SET s.classe = null WHERE s.classe = :classe AND s.id IN :students_id")
     void deleteClasseOnStudents(@Param("classe") Classe classe, @Param("students_id") List<Long> students_id);
 
     @Transactional
     @Modifying
-    @Query("UPDATE Student AS s SET s.classe_student = :classe WHERE s.id IN :students_id")
+    @Query("UPDATE Student AS s SET s.classe = null WHERE s.classe = :classe")
+    void clearClasseOnStudents(@Param("classe") Classe cLasse);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE Student AS s SET s.classe = :classe WHERE s.id IN :students_id")
     void updateClasseOnStudents(@Param("classe") Classe classe, @Param("students_id") List<Long> students_id);
 }

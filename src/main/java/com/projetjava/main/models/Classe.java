@@ -14,10 +14,10 @@ public class Classe {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "classe_student", cascade = CascadeType.DETACH)
+    @OneToMany(mappedBy = "classe", cascade = CascadeType.DETACH)
     private List<Student> students;
 
-    @OneToMany(mappedBy = "classe_homework", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "classe", cascade = CascadeType.REMOVE)
     private List<Homework> homeworks;
 
 

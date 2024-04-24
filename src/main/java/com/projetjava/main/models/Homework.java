@@ -25,9 +25,9 @@ public class Homework {
 
     @ManyToOne
     @JoinColumn(name = "classe_id")
-    private Classe classe_homework;
+    private Classe classe;
 
-    @OneToMany(mappedBy = "homework_id")
+    @OneToMany(mappedBy = "homework")
     private List<Note> notes;
 
     @ManyToOne
@@ -50,8 +50,8 @@ public class Homework {
         return coefficient;
     }
 
-    public Classe getClasse_homework() {
-        return classe_homework;
+    public Classe getClasse() {
+        return classe;
     }
 
     public Subject getSubject() {
@@ -71,8 +71,8 @@ public class Homework {
         this.coefficient = coefficient;
     }
 
-    public void setClasse(Classe classe_homework) {
-        this.classe_homework = classe_homework;
+    public void setClasse(Classe classe) {
+        this.classe = classe;
     }
 
     public void setSubject(Subject subject) {

@@ -10,6 +10,7 @@ import com.projetjava.main.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,6 +21,16 @@ public class StudentService {
 
     @Autowired
     private ClasseRepository classeRepository;
+
+    public List<Student> getStudent()
+    {
+        return this.studentRepository.findAll();
+    }
+
+    public List<Student> getStudentsWithoutClasse()
+    {
+        return this.studentRepository.findAllStudentWithoutClasse();
+    }
 
     public Student createStudent(CreateStudentRequest studentRequest) {
 

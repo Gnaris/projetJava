@@ -1,6 +1,7 @@
 package com.projetjava.main.models;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Type;
 
 import java.util.List;
 
@@ -12,28 +13,30 @@ public class Student {
     private Long id;
 
     @Column(nullable = false)
-    private String firstname;
+    private String firstName;
 
     @Column(nullable = false)
-    private String lastname;
+    private String lastName;
 
-    @Column
+    @Column(length = 65535)
     private String photo;
 
     @ManyToOne
     @JoinColumn(name = "classe_id", nullable = true)
-    private Classe classe_student;
+    private Classe classe;
 
-    @OneToMany(mappedBy = "student_id", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "student", cascade = CascadeType.REMOVE)
     private List<Note> notes;
 
     public String getFirstName() {
-        return this.firstname;
+        return this.firstName;
     }
 
     public String getLastName(){
-        return this.lastname;
+        return this.lastName;
     }
+
+    public String getPhoto(){ return this.photo; }
 
     public Long getId()
     {
@@ -42,7 +45,7 @@ public class Student {
 
     public void setClass(Classe classe)
     {
-        this.classe_student = classe;
+        this.classe = classe;
     }
 
 
@@ -51,11 +54,11 @@ public class Student {
     }
 
     public void setLastname(String lastname) {
-        this.lastname = lastname;
+        this.lastName = lastname;
     }
 
     public void setFirstname(String firstname) {
-        this.firstname = firstname;
+        this.firstName = firstname;
     }
 
     public void setPhoto(String photo){

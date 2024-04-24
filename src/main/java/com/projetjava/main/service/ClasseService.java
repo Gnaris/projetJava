@@ -42,11 +42,7 @@ public class ClasseService {
         {
             Classe updatedClasse = currentClass.get();
             updatedClasse.setName(classeRequest.getName());
-
-            if(!classeRequest.getStudentsIdToDelete().isEmpty())
-            {
-                this.studentRepository.deleteClasseOnStudents(updatedClasse, classeRequest.getStudentsIdToDelete());
-            }
+            this.studentRepository.clearClasseOnStudents(updatedClasse);
             if(!classeRequest.getStudentsIdToAdd().isEmpty())
             {
                 this.studentRepository.updateClasseOnStudents(updatedClasse, classeRequest.getStudentsIdToAdd());

@@ -1,10 +1,10 @@
 package com.projetjava.main.controller;
 
+import com.projetjava.main.entity.ResponseData;
 import com.projetjava.main.request.ClasseRequest.CreateClasseRequest;
 import com.projetjava.main.request.ClasseRequest.DeleteClasseRequest;
 import com.projetjava.main.request.ClasseRequest.UpdateClasseRequest;
 import com.projetjava.main.service.ClasseService;
-import com.projetjava.main.entity.ApiResponse;
 import com.projetjava.main.models.Classe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,47 +21,48 @@ public class ClasseController {
     private ClasseService classeService;
 
     @GetMapping("/classe")
-    public ResponseEntity<List<Classe>> getClasse()
+    public ResponseEntity<ResponseData> getClasse()
     {
-        return ResponseEntity.ok(this.classeService.getClasses());
+        return ResponseEntity.ok(new ResponseData(true, this.classeService.getClasses()));
     }
 
     @PostMapping("/classe/create")
-    public ResponseEntity<Object> createClasse(@RequestBody CreateClasseRequest classeRequest){
+    public ResponseEntity<ResponseData> createClasse(@RequestBody CreateClasseRequest classeRequest){
         try{
-            Classe newClasse = classeService.createClasse(classeRequest);
-            return ResponseEntity.ok(newClasse);
+            return ResponseEntity.ok(new ResponseData(true, classeService.createClasse(classeRequest)));
         }catch (Exception e)
         {
             System.out.println(e.getMessage());
-            return new ResponseEntity<>(new ApiResponse("Une erreur est survenue lors de la création de la classe"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ResponseData(false, "Une erreur est survenue lors de la création de la classe"), HttpStatus.BAD_REQUEST);
         }
     }
 
     @PutMapping("/classe/update")
-    public ResponseEntity<Object> updateClasse(@RequestBody UpdateClasseRequest classeRequest){
+    public ResponseEntity<ResponseData> updateClasse(@RequestBody UpdateClasseRequest classeRequest){
         try{
             Classe updatedClasse = classeService.updateClasse(classeRequest);
-            return new ResponseEntity<>(Objects.requireNonNullElseGet(updatedClasse, () -> new ApiResponse("Cette classe n'existe pas ")), HttpStatus.OK);
+            if(updatedClasse != null)
+            {
+                return ResponseEntity.ok(new ResponseData(true, updatedClasse));
+            }else{throw new Exception();}
         }catch (Exception e)
         {
-            return new ResponseEntity<>(new ApiResponse("Une erreur est survenue lors de la modification de la classe"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ResponseData(false, "Une erreur est survenue lors de la modification de la classe"), HttpStatus.BAD_REQUEST);
         }
     }
 
     @DeleteMapping("/classe/delete")
-    public ResponseEntity<Object> deleteClasse(@RequestBody DeleteClasseRequest classeRequest)
+    public ResponseEntity<ResponseData> deleteClasse(@RequestBody DeleteClasseRequest classeRequest)
     {
         try{
-            boolean isDeleted = classeService.deleteClasse(classeRequest.getId());
-            if(isDeleted)
+            if(classeService.deleteClasse(classeRequest.getId()))
             {
-                return new ResponseEntity<>(true, HttpStatus.OK);
+                return ResponseEntity.ok(new ResponseData(true, "La classe a été supprimée avec succès"));
             }else{
                 throw new Exception();
             }
         }catch (Exception e){
-            return new ResponseEntity<>(new ApiResponse("Une erreur est survenue lors de la suppression de la classe"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ResponseData(false, "Une erreur est survenue lors de la suppression de la classe"), HttpStatus.BAD_REQUEST);
         }
     }
 }

@@ -11,11 +11,11 @@ public class Note {
 
     @ManyToOne
     @JoinColumn(name = "student_id")
-    private Student student_id;
+    private Student student;
 
     @ManyToOne
     @JoinColumn(name = "homework_id")
-    private Homework homework_id;
+    private Homework homework;
 
     private float note;
 
@@ -24,9 +24,11 @@ public class Note {
         return id;
     }
 
-    public Student getStudent_id() {
-        return student_id;
+    public Student getStudent() {
+        return student;
     }
+
+    public Homework getHomework(){return this.homework;}
 
     public float getNote() {
         return note;

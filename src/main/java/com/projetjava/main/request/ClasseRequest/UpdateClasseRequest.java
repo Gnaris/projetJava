@@ -6,15 +6,10 @@ public class UpdateClasseRequest {
 
     private Long id;
     private String name;
-    private List<Long> studentsIdToAdd;
-    private List<Long> studentsIdToDelete;
+    private List<Long> students;
 
     public List<Long> getStudentsIdToAdd() {
-        return studentsIdToAdd;
-    }
-
-    public List<Long> getStudentsIdToDelete() {
-        return studentsIdToDelete;
+        return this.students;
     }
 
     public Long getId()
