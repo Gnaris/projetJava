@@ -10,13 +10,21 @@
         <p>Modification</p>
       </mat-label>
       }
-      <form class="example-form" [formGroup]="etudiantFormGroup">
+      <form class="example-form"
+            [formGroup]="etudiantFormGroup">
         <mat-form-field class="example-full-width">
           <mat-label>Nom</mat-label>
-          <input name="nom" matInput type="text" placeholder="Ex. Dupont" [(ngModel)]="etudiant.firstname"
-            [formControl]="nomCtrlForm">
+          <input name="nom"
+                 matInput
+                 type="text"
+                 placeholder="Ex. Dupont"
+                 [(ngModel)]="etudiant.firstname"
+                 [formControl]="nomCtrlForm">
           @if (etudiant.firstname) {
-          <button matSuffix mat-icon-button aria-label="Clear" (click)="etudiant.firstname=''">
+          <button matSuffix
+                  mat-icon-button
+                  aria-label="Clear"
+                  (click)="etudiant.firstname=''">
             <mat-icon>close</mat-icon>
           </button>
           }
@@ -25,9 +33,16 @@
 
         <mat-form-field class="example-full-width">
           <mat-label>Prénom</mat-label>
-          <input name="prenom" matInput type="text" [(ngModel)]="etudiant.lastname" [formControl]="prenomCtrlForm">
+          <input name="prenom"
+                 matInput
+                 type="text"
+                 [(ngModel)]="etudiant.lastname"
+                 [formControl]="prenomCtrlForm">
           @if (etudiant.lastname) {
-          <button matSuffix mat-icon-button aria-label="Clear" (click)="etudiant.lastname=''">
+          <button matSuffix
+                  mat-icon-button
+                  aria-label="Clear"
+                  (click)="etudiant.lastname=''">
             <mat-icon>close</mat-icon>
           </button>
           }<mat-error>{{getMessageErreur(prenomCtrlForm)}}</mat-error>
@@ -35,16 +50,27 @@
 
         <mat-form-field class="example-full-width">
           <mat-label>Photo</mat-label>
-          <input name="photo" matInput type="text" readonly="readonly">
+          <input name="photo"
+                 matInput
+                 type="text"
+                 readonly="readonly">
           <label for="photo"><mat-icon>attach_file</mat-icon></label>
-          <input id="photo" type="file" style="display: none" accept="image/*" (change)="selectFile($event)" />
+          <input id="photo"
+                 type="file"
+                 style="display: none"
+                 accept="image/*"
+                 (change)="selectFile($event)" />
           @if (etudiant.photo) {
-          <img width="30px" height="30px" [src]="etudiant.photo" />
+          <img width="30px"
+               height="30px"
+               [src]="etudiant.photo" />
           }
         </mat-form-field>
         <mat-form-field class="example-full-width">
           <mat-label for="classSelect">Classe</mat-label>
-          <mat-select name="classSelect" [(ngModel)]="etudiant.classe_id" [ngModelOptions]="{standalone: true}">
+          <mat-select name="classSelect"
+                      [(ngModel)]="etudiant.classe"
+                      [ngModelOptions]="{standalone: true}">
             <mat-option [value]=""></mat-option>
             @for (classe of classeList; track classe) {
             <mat-option [value]="classe.id">{{classe.name}}</mat-option>
@@ -53,7 +79,10 @@
         </mat-form-field>
 
         <mat-card-actions class="example-full-width align-center">
-          <button mat-fab extended color="primary" (click)="enregistrer()">
+          <button mat-fab
+                  extended
+                  color="primary"
+                  (click)="enregistrer()">
             Enregister
           </button>
         </mat-card-actions>

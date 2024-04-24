@@ -62,7 +62,9 @@ export class ResultatEtudiantComponent implements OnInit {
    */
   initEtudiantList(): void {
     this.etudiantService.rechercherEtudiants().subscribe({
-      next: value => this.dataSource.data = value,
+      next: value => {
+        this.dataSource.data = value.data
+      },
       error: err => console.error(err)
     });
     this.dataSource.paginator = this.paginator;

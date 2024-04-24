@@ -2,7 +2,7 @@ import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
-import { Classe, UpdateClasse } from '../model/classe';
+import { Classe, CreateOrUpdateClasse } from '../model/classe';
 import { ResponseData } from '../model/ResponseData';
 
 /**
@@ -21,20 +21,21 @@ export class ClasseService {
 
   supprimerClasse(classeId: number
   ): Observable<HttpResponse<string>> {
-    let paramList: HttpParams = new HttpParams();
-    paramList = paramList.set('id', classeId);
-    return this.http.delete(environment.supprimerClasse, {
-      params: paramList,
-    }) as Observable<HttpResponse<string>>;
+    return this.http.post(environment.supprimerClasse, { id: classeId }) as Observable<HttpResponse<string>>;
   }
 
 
   enregistrerClasse(classe: Classe
-  ): Observable<Classe> {
-    if(classe.id && classe.name)
-    {
-      const updateClasse : UpdateClasse = {id : classe.id, name : classe.name, students : (classe.students ? classe.students.map(s => (s.id ? s.id : 0)) : [])}
+  ): Observable<CreateOrUpdateClasse> {
+    if (classe.id && classe.name) {
+      console.log("update")
+      const updateClasse: CreateOrUpdateClasse = { id: classe.id, name: classe.name, students: classe.students.map(s => s.id) }
+      console.log(updateClasse)
+      return this.http.put(environment.updateClasse, updateClasse) as Observable<CreateOrUpdateClasse>
+    } else {
+      console.log("create")
+      const createClasse: CreateOrUpdateClasse = { name: classe.name, students: classe.students.map(s => s.id) }
+      return this.http.post(environment.enregistrerClasse, createClasse) as Observable<CreateOrUpdateClasse>;
     }
-    return this.http.post(environment.enregistrerClasse, classe) as Observable<Classe>;
   }
 }
