@@ -25,12 +25,12 @@ public class ClasseService {
     }
     public Classe createClasse(CreateClasseRequest classeRequest)
     {
-        List<Student> studentsToUpdate = this.studentRepository.findAllById(classeRequest.getStudents_id());
+        List<Student> studentsToUpdate = this.studentRepository.findAllById(classeRequest.getStudents());
         Classe classe = new Classe();
         classe.setName(classeRequest.getName());
         classe.setStudents(studentsToUpdate);
         Classe currentCreateClasse = this.classeRepository.save(classe);
-        this.studentRepository.updateClasseOnStudents(classe, classeRequest.getStudents_id());
+        this.studentRepository.updateClasseOnStudents(classe, classeRequest.getStudents());
         return currentCreateClasse;
     }
 
@@ -43,9 +43,11 @@ public class ClasseService {
             Classe updatedClasse = currentClass.get();
             updatedClasse.setName(classeRequest.getName());
             this.studentRepository.clearClasseOnStudents(updatedClasse);
-            if(!classeRequest.getStudentsIdToAdd().isEmpty())
+            System.out.println(classeRequest.getStudents());
+            if(!classeRequest.getStudents().isEmpty())
             {
-                this.studentRepository.updateClasseOnStudents(updatedClasse, classeRequest.getStudentsIdToAdd());
+                System.out.println("daz");
+                this.studentRepository.updateClasseOnStudents(updatedClasse, classeRequest.getStudents());
             }
 
             return this.classeRepository.save(updatedClasse);

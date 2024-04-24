@@ -57,7 +57,7 @@ public class StudentController {
         }
     }
 
-    @DeleteMapping("/student/delete")
+    @PostMapping("/student/delete")
     public ResponseEntity<ResponseData> deleteStudent(@RequestBody DeleteStudentRequest studentRequest) {
         try{
             if(this.studentService.deleteStudent(studentRequest))

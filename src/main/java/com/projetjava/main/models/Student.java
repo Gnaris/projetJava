@@ -1,7 +1,9 @@
 package com.projetjava.main.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerator;
 import jakarta.persistence.*;
-import org.hibernate.annotations.Type;
 
 import java.util.List;
 
@@ -13,10 +15,10 @@ public class Student {
     private Long id;
 
     @Column(nullable = false)
-    private String firstName;
+    private String firstname;
 
     @Column(nullable = false)
-    private String lastName;
+    private String lastname;
 
     @Column(length = 65535)
     private String photo;
@@ -28,12 +30,12 @@ public class Student {
     @OneToMany(mappedBy = "student", cascade = CascadeType.REMOVE)
     private List<Note> notes;
 
-    public String getFirstName() {
-        return this.firstName;
+    public String getFirstname() {
+        return this.firstname;
     }
 
-    public String getLastName(){
-        return this.lastName;
+    public String getLastname(){
+        return this.lastname;
     }
 
     public String getPhoto(){ return this.photo; }
@@ -48,17 +50,16 @@ public class Student {
         this.classe = classe;
     }
 
-
     public List<Note> getNotes() {
         return notes;
     }
 
     public void setLastname(String lastname) {
-        this.lastName = lastname;
+        this.lastname = lastname;
     }
 
     public void setFirstname(String firstname) {
-        this.firstName = firstname;
+        this.firstname = firstname;
     }
 
     public void setPhoto(String photo){

@@ -7,7 +7,7 @@ public class CreateClasseRequest {
     private String name;
     private List<Long> students;
 
-    public List<Long> getStudents_id()
+    public List<Long> getStudents()
     {
         return this.students;
     }

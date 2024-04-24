@@ -8,7 +8,7 @@ public class UpdateClasseRequest {
     private String name;
     private List<Long> students;
 
-    public List<Long> getStudentsIdToAdd() {
+    public List<Long> getStudents() {
         return this.students;
     }
 

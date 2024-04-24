@@ -35,6 +35,7 @@ public class StudentService {
     public Student createStudent(CreateStudentRequest studentRequest) {
 
         Student student = new Student();
+        System.out.println(studentRequest.getFirstname());
         student.setFirstname(studentRequest.getFirstname());
         student.setLastname(studentRequest.getLastname());
         student.setPhoto(studentRequest.getPhoto());

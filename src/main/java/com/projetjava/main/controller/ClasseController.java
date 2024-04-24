@@ -40,6 +40,7 @@ public class ClasseController {
     @PutMapping("/classe/update")
     public ResponseEntity<ResponseData> updateClasse(@RequestBody UpdateClasseRequest classeRequest){
         try{
+            System.out.println(classeRequest.getName());
             Classe updatedClasse = classeService.updateClasse(classeRequest);
             if(updatedClasse != null)
             {
@@ -51,7 +52,7 @@ public class ClasseController {
         }
     }
 
-    @DeleteMapping("/classe/delete")
+    @PostMapping("/classe/delete")
     public ResponseEntity<ResponseData> deleteClasse(@RequestBody DeleteClasseRequest classeRequest)
     {
         try{
