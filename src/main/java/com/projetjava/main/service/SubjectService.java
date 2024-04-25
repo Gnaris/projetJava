@@ -17,6 +17,10 @@ public class SubjectService {
     @Autowired
     private SubjectRepository subjectRepository;
 
+    public List<Subject> getSubject()
+    {
+        return this.subjectRepository.findAll();
+    }
     public Subject createSubject(CreateSubjectRequest subjectRequest) {
         List<Subject> subject = this.subjectRepository.findByName(subjectRequest.getName());
         if(subject.isEmpty()) {
@@ -29,6 +33,7 @@ public class SubjectService {
 
     public boolean deleteSubject(DeleteSubjectRequest subjectRequest) {
         Optional<Subject> subject = this.subjectRepository.findById(subjectRequest.getId());
+        System.out.println(subjectRequest.getId());
         if(subject.isPresent()) {
             if(subject.get().getHomeworks().isEmpty())
             {

@@ -1,5 +1,6 @@
 package com.projetjava.main.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -15,6 +16,7 @@ public class Subject {
     private String name;
 
     @OneToMany(mappedBy = "subject")
+    @JsonBackReference
     private List<Homework> homeworks;
 
     public Long getId() {

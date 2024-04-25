@@ -12,7 +12,6 @@ public class CreateHomeworkRequest {
     private float coefficient;
     private Long subject_id;
     private Long classe_id;
-    private List<Integer> points;
 
 
     public HomeworkType getHomeworkType() {
@@ -35,7 +34,4 @@ public class CreateHomeworkRequest {
         return classe_id;
     }
 
-    public List<Integer> getPoints() {
-        return points;
-    }
 }

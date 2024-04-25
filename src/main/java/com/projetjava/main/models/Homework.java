@@ -1,5 +1,7 @@
 package com.projetjava.main.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.projetjava.main.entity.HomeworkType;
 import jakarta.persistence.*;
 
@@ -25,6 +27,7 @@ public class Homework {
 
     @ManyToOne
     @JoinColumn(name = "classe_id")
+    @JsonManagedReference
     private Classe classe;
 
     @OneToMany(mappedBy = "homework")
@@ -32,6 +35,7 @@ public class Homework {
 
     @ManyToOne
     @JoinColumn(name = "subject_id")
+    @JsonManagedReference
     private Subject subject;
 
     public Long getId() {

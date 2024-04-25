@@ -1,5 +1,6 @@
 package com.projetjava.main.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -19,6 +20,7 @@ public class Classe {
     private List<Student> students;
 
     @OneToMany(mappedBy = "classe", cascade = CascadeType.REMOVE)
+    @JsonBackReference
     private List<Homework> homeworks;
 
 
