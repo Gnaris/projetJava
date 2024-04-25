@@ -1,0 +1,96 @@
+<div class="align-center">
+    <mat-card>
+      <mat-card-content>
+        @if (devoir.id == null) {
+        <mat-label>
+          <p>Création</p>
+        </mat-label>
+        } @else {
+        <mat-label>
+          <p>Modification</p>
+        </mat-label>
+        }
+  
+        <form class="example-form"
+              [formGroup]="devoirFormGroup">
+          <mat-form-field class="example-full-width">
+            <mat-label>Coefficient</mat-label>
+            <input name="nom"
+                   matInput
+                   type="text"
+                   placeholder="Ex. 1,2,3,4,5"
+                   [(ngModel)]="devoir.type"
+                   [formControl]="nomCtrlForm">
+            @if (devoir.type) {
+            <button matSuffix
+                    mat-icon-button
+                    aria-label="Clear"
+                    (click)="devoir.type=''">
+              <mat-icon>close</mat-icon>
+            </button>
+            }
+            <mat-error>{{getMessageErreur(nomCtrlForm)}}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Date</mat-label>
+            <input name="nom"
+                   matInput
+                   type="text"
+                   placeholder="Ex. 2024-04-25"
+                   [(ngModel)]="devoir.type"
+                   [formControl]="nomCtrlForm">
+            @if (devoir.type) {
+            <button matSuffix
+                    mat-icon-button
+                    aria-label="Clear"
+                    (click)="devoir.type=''">
+              <mat-icon>close</mat-icon>
+            </button>
+            }
+            <mat-error>{{getMessageErreur(nomCtrlForm)}}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Type</mat-label>
+            <input name="nom"
+                   matInput
+                   type="text"
+                   placeholder="Ex. 2024-04-25"
+                   [(ngModel)]="devoir.type"
+                   [formControl]="nomCtrlForm">
+            @if (devoir.type) {
+            <button matSuffix
+                    mat-icon-button
+                    aria-label="Clear"
+                    (click)="devoir.type=''">
+              <mat-icon>close</mat-icon>
+            </button>
+            }
+            <mat-error>{{getMessageErreur(nomCtrlForm)}}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label for="classSelect">Classe</mat-label>
+            <mat-select name="classSelect"
+                        [(ngModel)]="devoir.classe"
+                        [ngModelOptions]="{standalone: true}">
+              <mat-option [value]=""></mat-option>
+              @for (classe of classeList; track classe) {
+              <mat-option [value]="classe.id">{{classe.name}}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+  
+          <mat-card-actions class="example-full-width align-center">
+            <button mat-fab
+                    extended
+                    color="primary"
+                    (click)="enregistrer()">
+              Enregister
+            </button>
+          </mat-card-actions>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>

@@ -1,4 +1,4 @@
 export interface Matiere {
-    id: number;
+    id?: number;
     name: string;
 }

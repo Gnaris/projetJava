@@ -1,15 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions } from '@angular/material/tooltip';
-import { Etudiant } from '../../model/etudiant';
-import { EtudiantService } from '../../service/etudiant.service';
 import { MaterialModule } from '../../shared/material-module';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterLink, Router } from '@angular/router';
 import { ModificationService } from '../../service/modification.service';
 import { MatiereService } from '../../service/matiere.service';
-import { MatIconModule } from '@angular/material/icon'
 import { Matiere } from '../../model/matiere';
 
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
@@ -34,18 +30,35 @@ export class ResultatMatiereComponent {
     private modificationService: ModificationService
   ) { }
 
-  displayedColumns: string[] = ['id', 'nom', 'prenom', 'classe', 'photo'];
+  displayedColumns: string[] = ['id', 'name'];
   dataSource = new MatTableDataSource<Matiere>();
 
+  ngOnInit() : void {
+    this.matiereService.recupererMatieres().subscribe({
+      next : (value) => {
+        if(value.success){
+          this.dataSource.data = value.data
+        }
+      },
+      error : err => console.log(err)
+    })
+  }
+
   ajouterMatiere(): void {
-
+    this.router.navigateByUrl('detail-matiere')
   }
 
-  modifierMatiere(): void {
-
+  modifierMatiere(matiere : Matiere): void {
+      this.modificationService.envoyerObjetACreerOuModifier(matiere)
+      this.router.navigateByUrl("detail-matiere")
   }
 
-  supprimerMatiere(): void {
-
+  supprimerMatiere(matiereId : number): void {
+    this.matiereService.supprimerMatiere(matiereId).subscribe({
+      next : value => {
+        this.dataSource.data = this.dataSource.data.filter(m => m.id !== m.id)
+      },
+      error : err => console.log(err)
+    })
   }
 }

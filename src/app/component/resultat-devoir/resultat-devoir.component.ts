@@ -3,23 +3,23 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MaterialModule } from '../../shared/material-module';
 import { Router, RouterLink } from '@angular/router';
-import { ClasseService } from '../../service/classe.service';
+import { DevoirService } from '../../service/devoir.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ModificationService } from '../../service/modification.service';
-import { Classe } from '../../model/classe';
+import { Devoir } from '../../model/devoirs';
 
 
 @Component({
-  selector: 'app-resultat-classe',
+  selector: 'app-resultat-devoir',
   standalone: true,
   imports: [MaterialModule, HttpClientModule, RouterLink],
-  providers: [ClasseService],
-  templateUrl: './resultat-classe.component.html',
-  styleUrl: './resultat-classe.component.css'
+  providers: [DevoirService],
+  templateUrl: './resultat-devoir.component.html',
+  styleUrl: './resultat-devoir.component.css'
 })
-export class ResultatClasseComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'nom'];
-  dataSource = new MatTableDataSource<Classe>();
+export class ResultatDevoirsComponent implements OnInit {
+  displayedColumns: string[] = ['id', 'type', 'date', 'coefficient', 'classe', 'matiere'];
+  dataSource = new MatTableDataSource<Devoir>();
 
   @ViewChild(MatPaginator) set paginator(pager: MatPaginator) {
     if (pager) {
@@ -39,41 +39,43 @@ export class ResultatClasseComponent implements OnInit {
       };
     }
   }
+
   constructor(
     private router: Router,
-    private classeService: ClasseService,
+    private DevoirService: DevoirService,
     private modificationService: ModificationService) {
   }
+  
   ngOnInit(): void {
-    this.initClasseList();
+    this.initDevoirList();
     this.dataSource.paginator = this.paginator;
   }
 
-  private initClasseList(): void {
-    this.classeService.rechercherClasses().subscribe({
+  private initDevoirList(): void {
+    this.DevoirService.rechercherDevoirs().subscribe({
       next: value => this.dataSource.data = value.success ? value.data : [],
       error: err => console.error(err)
     });
   }
 
-  ajouterClasse(): void {
+  ajouterDevoir(): void {
+    console.log("zef")
     this.modificationService.envoyerObjetACreerOuModifier({});
-    this.router.navigateByUrl('detail-classe');
+    this.router.navigateByUrl('detail-devoir');
   }
 
-  modifierClasse(classeAModifier: Classe): void {
-    this.modificationService.envoyerObjetACreerOuModifier(classeAModifier);
-    this.router.navigateByUrl('detail-classe');
+  modifierDevoir(DevoirAModifier: Devoir): void {
+    this.modificationService.envoyerObjetACreerOuModifier(DevoirAModifier);
+    this.router.navigateByUrl('detail-Devoir');
   }
 
-  supprimerClasse(id: number): void {
-
-    this.classeService.supprimerClasse(id).subscribe({
-      next: () => {
-        this.dataSource.data = this.dataSource.data.filter(item => item.id !== id);
+  supprimerDevoir(id: number): void {
+    this.DevoirService.supprimerDevoir(id).subscribe({
+      next : value => {
+        this.dataSource.data = this.dataSource.data.filter(d => d.id != id)
       },
-      error: err => console.error('Erreur de suppression: ', err)
-    });
+      error : err => console.log(err)
+    })
   }
 }
 

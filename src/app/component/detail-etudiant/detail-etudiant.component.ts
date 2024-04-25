@@ -85,7 +85,6 @@ export class DetailEtudiantComponent implements OnInit {
    * Initialiser la liste des classes pour pouvoir affecter à l'étudiant.
    */
   private initClasseList(): void {
-    console.log("aze")
     this.classeService.rechercherClasses().subscribe({
       next: value => this.classeList = value.data,
       error: err => console.error(err)

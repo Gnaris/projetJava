@@ -28,12 +28,9 @@ export class ClasseService {
   enregistrerClasse(classe: Classe
   ): Observable<CreateOrUpdateClasse> {
     if (classe.id && classe.name) {
-      console.log("update")
       const updateClasse: CreateOrUpdateClasse = { id: classe.id, name: classe.name, students: classe.students.map(s => s.id) }
-      console.log(updateClasse)
       return this.http.put(environment.updateClasse, updateClasse) as Observable<CreateOrUpdateClasse>
     } else {
-      console.log("create")
       const createClasse: CreateOrUpdateClasse = { name: classe.name, students: classe.students.map(s => s.id) }
       return this.http.post(environment.enregistrerClasse, createClasse) as Observable<CreateOrUpdateClasse>;
     }

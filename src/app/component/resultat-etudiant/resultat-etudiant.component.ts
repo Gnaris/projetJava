@@ -70,27 +70,16 @@ export class ResultatEtudiantComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  /**
-    * Action d'ajout d'un étudiant.
-    * Elle émet un message pour les abbonnés avec un étudiant vide.
-    */
   ajouterEtudiant(): void {
     this.modificationService.envoyerObjetACreerOuModifier({});
     this.router.navigateByUrl('detail-etudiant');
   }
 
-  /**
-    * Action de modification d'un étudiant.
-    * Elle émet un message pour les abbonnés, l'étudiant sélectionné.
-    */
   modifierEtudiant(etudiant: Etudiant): void {
     this.modificationService.envoyerObjetACreerOuModifier(etudiant);
     this.router.navigateByUrl('detail-etudiant');
   }
 
-  /**
-    * Action de suppression d'un étudiant.
-    */
   supprimerEtudiant(id: number): void {
     this.etudiantService.supprimerEtudiant(id).subscribe({
       next: () => {
